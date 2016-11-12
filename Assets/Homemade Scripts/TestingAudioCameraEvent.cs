@@ -7,14 +7,17 @@ public class TestingAudioCameraEvent : MonoBehaviour {
     public int hasBeenActivated = 0;
     public float previousTime = 0;
     public float newTime = 0;
+	public GameObject objectLook;
+	public GameObject myLook;
     void Start() {
         sounds = GetComponent<AudioSource>();
         voiceClips = Resources.LoadAll<AudioClip>("Sound");
         noise1 = voiceClips[0];
+		objectLook = GameObject.Find("EthanBody");
+		myLook = GameObject.Find("Tango AR Camera");
     }
     void Update() {
-        var objectLook = GameObject.Find("EthanBody");
-        var myLook = GameObject.Find("Tango AR Camera");
+
         Vector3 dirFromMeToObject = (objectLook.transform.position - myLook.transform.position).normalized;
         Vector3 myCurrentFacingDir = transform.forward;
         if (Vector3.Dot(dirFromMeToObject, myCurrentFacingDir) > 0.75 && hasBeenActivated == 0) {
