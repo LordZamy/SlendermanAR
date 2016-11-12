@@ -10,24 +10,52 @@ public class FadedScreen : MonoBehaviour {
 		fadedTexture = new Texture2D (Screen.width, Screen.height);
 
 		float alpha = 1.0f;
-		float reduce = alpha / fadedTexture.height;
-		for (int y = 0; y < fadedTexture.height / 2; y++) {
-			for (int x = y; x < fadedTexture.width - y; x++) {
-				fadedTexture.SetPixel (x, y, new Color (0.0f, 0.0f, 0.0f, alpha));
+		float reduce = 0.001f;
+		float offset = 0;
+		for (int i = 0; i < fadedTexture.height / 2; i++) {
+			for (int j = 0; j < fadedTexture.width / 2 - (int) offset; j++) {
+				fadedTexture.SetPixel (j, i, new Color (0.0f, 0.0f, 0.0f, alpha));
 			}
-				
-			for (int x = y; x < fadedTexture.width - y; x++) {
-				fadedTexture.SetPixel (x, fadedTexture.height - y, new Color (0.0f, 0.0f, 0.0f, alpha));
-			}
-
-			for (int x = y; x < fadedTexture.height - y; x++) {
-				fadedTexture.SetPixel (y, x, new Color (0.0f, 0.0f, 0.0f, alpha));
+			for (int j = fadedTexture.width / 2 + (int) offset; j < fadedTexture.width; j++) {
+				fadedTexture.SetPixel (j, i, new Color (0.0f, 0.0f, 0.0f, alpha));
 			}
 
-			for (int x = y; x < fadedTexture.height - y; x++) {
-				fadedTexture.SetPixel (fadedTexture.width - y, x, new Color (0.0f, 0.0f, 0.0f, alpha));
+			float alphaCopy = alpha;
+			for (int j = fadedTexture.width / 2 - (int) offset; j < fadedTexture.width / 2; j++) {
+				fadedTexture.SetPixel (j, i, new Color (0.0f, 0.0f, 0.0f, alphaCopy));
+				alphaCopy -= reduce;
 			}
 
+			for (int j = fadedTexture.width / 2; j < fadedTexture.width / 2 + (int) offset; j++) {
+				fadedTexture.SetPixel (j, i, new Color (0.0f, 0.0f, 0.0f, alphaCopy));
+				alphaCopy += reduce;
+			}
+
+			offset = Mathf.Sqrt((Mathf.Pow((fadedTexture.height / 2), 2) - Mathf.Pow(fadedTexture.height / 2 - i, 2)));
+			alpha -= reduce;
+		}
+
+		alpha = 1.0f;
+		for (int i = fadedTexture.height; i >= fadedTexture.height / 2; i--) {
+			for (int j = 0; j < fadedTexture.width / 2 - (int) offset; j++) {
+				fadedTexture.SetPixel (j, i, new Color (0.0f, 0.0f, 0.0f, alpha));
+			}
+			for (int j = fadedTexture.width / 2 + (int) offset; j < fadedTexture.width; j++) {
+				fadedTexture.SetPixel (j, i, new Color (0.0f, 0.0f, 0.0f, alpha));
+			}
+
+			float alphaCopy = alpha;
+			for (int j = fadedTexture.width / 2 - (int) offset; j < fadedTexture.width / 2; j++) {
+				fadedTexture.SetPixel (j, i, new Color (0.0f, 0.0f, 0.0f, alphaCopy));
+				alphaCopy -= reduce;
+			}
+
+			for (int j = fadedTexture.width / 2; j < fadedTexture.width / 2 + (int) offset; j++) {
+				fadedTexture.SetPixel (j, i, new Color (0.0f, 0.0f, 0.0f, alphaCopy));
+				alphaCopy += reduce;
+			}
+
+			offset = Mathf.Sqrt((Mathf.Pow((fadedTexture.height / 2), 2) - Mathf.Pow(fadedTexture.height / 2 - i, 2)));
 			alpha -= reduce;
 		}
 
