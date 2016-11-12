@@ -13,7 +13,7 @@ public class TestingAudioCameraEvent : MonoBehaviour {
         noise1 = voiceClips[0];
     }
     void Update() {
-        var objectLook = GameObject.Find("Ethan");
+        var objectLook = GameObject.Find("EthanBody");
         var myLook = GameObject.Find("Tango AR Camera");
         Vector3 dirFromMeToObject = (objectLook.transform.position - myLook.transform.position).normalized;
         Vector3 myCurrentFacingDir = transform.forward;
