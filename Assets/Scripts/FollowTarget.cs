@@ -6,7 +6,7 @@ public class FollowTarget : MonoBehaviour {
 	// the object our follower is attached to
 	public GameObject target;
 
-	private float moveSpeed = 0.5f;
+	private float moveSpeed = 0.2f;
 	private float moveDist;
 
 	// Use this for initialization
