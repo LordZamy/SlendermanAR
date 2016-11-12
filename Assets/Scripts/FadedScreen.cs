@@ -10,7 +10,7 @@ public class FadedScreen : MonoBehaviour {
 		fadedTexture = new Texture2D (Screen.width, Screen.height);
 
 		float alpha = 1.0f;
-		float reduce = 0.001f;
+		float reduce = 0.0008f;
 		float offset = 0;
 		for (int i = 0; i < fadedTexture.height / 2; i++) {
 			for (int j = 0; j < fadedTexture.width / 2 - (int) offset; j++) {
