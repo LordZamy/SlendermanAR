@@ -1,20 +1,22 @@
 using UnityEngine;
 using System.Collections;
 public class TestingAudioCameraEvent : MonoBehaviour {
-    void start() {
-        Debug.Log("Hello");
+    public AudioClip[] voiceClips;
+    public AudioClip noise1;
+    public AudioSource sounds;
+    void Start() {
+        sounds = GetComponent<AudioSource>();
+        voiceClips = Resources.LoadAll<AudioClip>("Sound");
+        noise1 = voiceClips[0];
+    }
+    void Update() {
         var objectLook = GameObject.Find("Ethan");
         var myLook = GameObject.Find("Tango AR Camera");
         Vector3 dirFromMeToObject = (objectLook.transform.position - myLook.transform.position).normalized;
         Vector3 myCurrentFacingDir = transform.forward;
-        if (Vector3.Dot(dirFromMeToObject, myCurrentFacingDir) > 0){
-            Debug.Log("object is with a 180 degree arc in front of us");
-        }
-        if (Vector3.Dot(dirFromMeToObject, myCurrentFacingDir) > 0.5) {
-            Debug.Log("object is with a 90 degree arc in front of us");
-        }
-        if (Vector3.Dot(dirFromMeToObject, myCurrentFacingDir) > 0.75) {
+        if (Vector3.Dot(dirFromMeToObject, myCurrentFacingDir) > 0.75 && !sounds.isPlaying) {
             Debug.Log("object is with a 45 degree arc in front of us");
+            sounds.PlayOneShot(noise1, 1);
         }
     }
  }
