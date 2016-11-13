@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FollowTarget : MonoBehaviour {
+public class FollowTheTarget : MonoBehaviour {
 
 	// the object our follower is attached to
 	public GameObject target;

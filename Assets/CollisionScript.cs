@@ -7,13 +7,13 @@ public class CollisionScript : MonoBehaviour {
 	public Text countText;
 	void Start() {
 		count = 0;
-		countText.text = "Count: " + count.ToString ();
+		countText.text = count.ToString ();
 	}
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag ("Collectable")) {
 			other.gameObject.SetActive(false);
 			count = count + 1;
-			countText.text = "Count: " + count.ToString ();
+			countText.text = count.ToString ();
 		}
 	}
 }
