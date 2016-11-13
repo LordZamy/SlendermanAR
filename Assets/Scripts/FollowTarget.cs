@@ -6,7 +6,9 @@ public class FollowTarget : MonoBehaviour {
 	// the object our follower is attached to
 	public GameObject target;
 
-	private float moveSpeed = 0.2f;
+	private float moveSpeed = 0.1f;
+	private const float MIN_SPEED = 0.1f;
+	private const float MAX_SPEED = 1.0f;
 	private float moveDist;
 
 	// Use this for initialization
@@ -19,8 +21,20 @@ public class FollowTarget : MonoBehaviour {
 		moveDist = moveSpeed * Time.deltaTime;
 
 		// if distance < 2 then don't move
-		if (Vector3.Distance (this.transform.position, target.transform.position) > 2) {
+		float displacement = Vector3.Distance (this.transform.position, target.transform.position);
+		if (displacement > 2) {
 			this.transform.position = Vector3.MoveTowards(this.transform.position, target.transform.position, moveDist);
+
+			if (displacement > 4) {
+				if (moveSpeed < MAX_SPEED) {
+					moveSpeed += 0.2f * Time.deltaTime;
+				}
+			} else {
+				if (moveSpeed > MIN_SPEED) {
+					moveSpeed -= 0.01f * Time.deltaTime;
+				}
+			}
 		}
+		print (moveSpeed);
 	}
 }
